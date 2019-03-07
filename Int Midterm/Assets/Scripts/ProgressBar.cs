@@ -28,9 +28,12 @@ public class ProgressBar : MonoBehaviour
    
 
     public GameObject player;
-
     public bool resetBar;
+    
+    
     public GameObject objectOne;
+    public GameObject couchModel;
+    public GameObject couchDoodle;
     public bool oneDone;
     public bool oneStart;
     
@@ -44,10 +47,10 @@ public class ProgressBar : MonoBehaviour
 
     //Other Minigames to fill up bar trigger
     bool dealingDamage;
-    public Color damageColor;
+    Color damageColor;
 
 
-    public bool shouldFill;
+    bool shouldFill;
 
     //Prototype Stuff
     public Dialog convo;
@@ -64,12 +67,17 @@ public class ProgressBar : MonoBehaviour
         //Get the value of the slider 
         //set it to calculate progress
         progressBar.value = CalculateProgress();
-
         resetBar = false;
+        
         oneDone = false;
         oneStart = false;
+        couchModel = GameObject.Find("Couch");
+       
+        
         twoDone = false;
         twoStart = false;
+        
+        
         threeDone = false;
         twoStart = false;
 
@@ -97,7 +105,8 @@ public class ProgressBar : MonoBehaviour
         //Object Two
         if (oneDone)
         {
-
+            couchDoodle.GetComponent<SpriteRenderer>().enabled = false;
+            couchModel.GetComponent<MeshRenderer>().enabled = true;
 
             if (twoStart)
             {
