@@ -8,6 +8,8 @@ TagManager:
   - Cleaning Object 1
   - Cleaning Object 2
   - damage game
+  - Cleaning Object 3
+  - Cleaning Object 4
   layers:
   - Default
   - TransparentFX
