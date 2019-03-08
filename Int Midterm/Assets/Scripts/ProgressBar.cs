@@ -209,9 +209,10 @@ public class ProgressBar : MonoBehaviour
 
         if (fourDone == true)
         {
+            bowlDoodle.GetComponent<SpriteRenderer>().enabled = false;
+            bowlModel.GetComponent<MeshRenderer>().enabled = true;
             animator.SetBool("shouldAppear", false);
             shouldFill = false;
-            Debug.Log("Change to model");
         }
 
 
