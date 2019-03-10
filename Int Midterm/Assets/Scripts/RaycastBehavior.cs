@@ -29,12 +29,21 @@ public class RaycastBehavior : MonoBehaviour
 
         if (Physics.Raycast(playerRay.origin, playerRay.direction, out hit, maxDistance))
         {
-            Debug.Log("I got something, chief!");
-            
+           
             if (hit.transform.gameObject.tag == "Cleaning Object 1")
             {
                 progressScript.oneStart = true;
                 Debug.Log("Set one to true");
+                
+                
+                //This makes the couch the "5th" object
+                //We are essentially looping back to the start
+                if (progressScript.fourDone)
+                {
+                    Debug.Log("This SHOULD show up!");
+                    progressScript.repeatOne = true;
+
+                }
             }
             
             if (hit.transform.gameObject.tag == "Cleaning Object 2" && progressScript.oneDone == true)
@@ -59,7 +68,7 @@ public class RaycastBehavior : MonoBehaviour
 
         else
         {
-            Debug.Log("This aint it.");
+       
         }
     }
 }

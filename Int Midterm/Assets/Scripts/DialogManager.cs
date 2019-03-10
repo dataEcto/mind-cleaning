@@ -29,7 +29,7 @@ public class DialogManager : MonoBehaviour
 
     public void StartDialog (Dialog convoToShow)
     {
-        Debug.Log("Start the Convo");
+       
         anim.SetBool("isOpen",true);
         
         _sentences.Clear();

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndDialog : MonoBehaviour
+public class Object_4_Dialog : MonoBehaviour
 {
     private bool isTriggered;
     public Dialog convo;
@@ -22,7 +22,7 @@ public class EndDialog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (progressScript.threeDone == true)
+        if (progressScript.fourDone == true)
         {
             if (isTriggered == true)
             {
