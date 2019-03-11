@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;
 
 //This is code from another game I was attempting
 //Some of the captilzation is off, so I apologize
@@ -64,6 +65,10 @@ public class ProgressBar : MonoBehaviour
     public bool repeatFourDone;
 
 
+    public bool bushyStart;
+    public bool bushyDone;
+
+
 
     //Other Minigames to fill up bar trigger
     bool dealingDamage;
@@ -114,6 +119,9 @@ public class ProgressBar : MonoBehaviour
         fourStart = false;
         repeatFour = false;
         repeatFourDone = false;
+
+        bushyStart = false;
+        bushyDone = false;
         
         //Set all other doodle objects to be invisible at first.
         switchDoodle.GetComponent<SpriteRenderer>().enabled = false;
@@ -361,6 +369,24 @@ public class ProgressBar : MonoBehaviour
             wall.GetComponent<MeshRenderer>().enabled = false;
             wall.GetComponent<BoxCollider>().enabled = false;
             Debug.Log("The wall should be gone now");
+
+
+            if (bushyStart)
+            {
+                
+                animator.SetBool("shouldAppear",true);
+                shouldFill = true;
+                DealDamage(70);
+
+                if (resetBar == false)
+                {
+                    currentProgress = 0;
+                    resetBar = true;
+                }
+                
+            }
+            
+            CleanBushy();
             
         }
         
@@ -618,7 +644,42 @@ public class ProgressBar : MonoBehaviour
      
         }
 
+      
     }
+    
+    void CleanBushy()
+    {
+            
+        if (Input.GetKeyDown(KeyCode.Space) && shouldFill && bushyDone == false)
+        {
+            Debug.Log("Refill Less");
+            addProgress(25);
+
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && shouldFill == false)
+        {
+            Debug.Log("Don't Fill");
+        }
+
+        if (currentProgress >= 99f && bushyDone == false)
+        {
+            bushyDone = true;
+            currentProgress = 0;
+            animator.SetBool("shouldAppear", false);
+        
+
+
+        }
+        else if (bushyDone)
+        {
+            animator.SetBool("shouldAppear", false);
+            //Get the player animating to do...something
+            SceneManager.LoadScene(1);
+
+        }
+            
+    }
+
 
 }
 

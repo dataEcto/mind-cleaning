@@ -81,6 +81,15 @@ public class RaycastBehavior : MonoBehaviour
                 }
              
             }
+
+            if (hit.transform.gameObject.tag == "Finish")
+            {
+
+                Debug.Log("Hit bushy");
+                progressScript.bushyStart = true;
+                
+
+            }
             
         }
 
