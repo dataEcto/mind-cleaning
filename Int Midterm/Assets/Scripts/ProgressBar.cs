@@ -44,18 +44,26 @@ public class ProgressBar : MonoBehaviour
     public GameObject switchDoodle;
     public bool twoDone;
     public bool twoStart;
+    public bool repeatThree;
+    public bool repeatThreeDone;
     
     public GameObject objectThree;
     public GameObject coffeeModel;
     public GameObject coffeeDoodle;
     public bool threeDone;
     public bool threeStart;
+    public bool repeatTwo;
+    public bool repeatTwoDone;
 
     public GameObject objectFour;
     public GameObject bowlModel;
     public GameObject bowlDoodle;
     public bool fourDone;
     public bool fourStart;
+    public bool repeatFour;
+    public bool repeatFourDone;
+
+
 
     //Other Minigames to fill up bar trigger
     bool dealingDamage;
@@ -68,6 +76,8 @@ public class ProgressBar : MonoBehaviour
     //Prototype Stuff
     public Dialog convo;
     public DialogManager dialogManager;
+    
+    public GameObject wall;
 
     void Start()
     {
@@ -85,21 +95,25 @@ public class ProgressBar : MonoBehaviour
         oneDone = false;
         oneStart = false;
         couchModel = GameObject.Find("Couch");
-       
+        repeatOne = false;
+        repeatOneDone = false;
         
         twoDone = false;
         twoStart = false;
         switchModel = GameObject.Find("Switch");
-        repeatOne = false;
-        repeatOneDone = false;
-        
+        repeatThree = false;
+        repeatThreeDone = false;
         
         threeDone = false;
-        twoStart = false;
+        threeStart = false;
         coffeeModel = GameObject.Find("CoffeeCup");
-
+        repeatTwo = false;
+        repeatTwoDone = false;
+        
         fourDone = false;
         fourStart = false;
+        repeatFour = false;
+        repeatFourDone = false;
         
         //Set all other doodle objects to be invisible at first.
         switchDoodle.GetComponent<SpriteRenderer>().enabled = false;
@@ -108,8 +122,9 @@ public class ProgressBar : MonoBehaviour
         
 
         dealingDamage = false;
-        dealingDamageAgain = false;
         damageColor = Color.blue;
+        
+        wall = GameObject.Find("Ending Wall");
     }
 
 
@@ -141,16 +156,7 @@ public class ProgressBar : MonoBehaviour
             
             if (twoStart)
             {
-                
-                shouldFill = true;
-                
-                if (resetBar == false)
-                {
-                    currentProgress = 0;
-                    resetBar = true;
-                    Debug.Log("Reset please");
-                }
-               
+                shouldFill = true;  
                 CleanObjectTwo();
                 animator.SetBool("shouldAppear", true);
             }
@@ -168,8 +174,9 @@ public class ProgressBar : MonoBehaviour
 
             coffeeDoodle.GetComponent<SpriteRenderer>().enabled = true;
             
-            animator.SetBool("shouldAppear", false);
             
+           
+            animator.SetBool("shouldAppear", false);
             fillbar.color = damageColor;
 
             if (dealingDamage == false)
@@ -183,7 +190,12 @@ public class ProgressBar : MonoBehaviour
                 shouldFill = true;
                 animator.SetBool("shouldAppear", true);
                 CleanObjectThree();
-                DealDamage(15);
+                DealDamage(10);
+            }
+            
+            if (currentProgress <= 0)
+            {
+                currentProgress = 1;
             }
 
         }
@@ -201,15 +213,9 @@ public class ProgressBar : MonoBehaviour
             bowlDoodle.GetComponent<SpriteRenderer>().enabled = true;
            
             animator.SetBool("shouldAppear", false);
-            DealDamage(0);
+           
          
             fillbar.color = damageColor;
-
-            if (dealingDamageAgain == false)
-            {
-                currentProgress = 50;
-                dealingDamageAgain = true;
-            }
 
             if (currentProgress <= 0)
             {
@@ -221,7 +227,7 @@ public class ProgressBar : MonoBehaviour
                 shouldFill = true;
                 animator.SetBool("shouldAppear", true);
                 CleanObjectFour();
-                DealDamage(5);
+                DealDamage(10);
             }
 
         }
@@ -242,12 +248,12 @@ public class ProgressBar : MonoBehaviour
             {
                 animator.SetBool("shouldAppear", true);
                 shouldFill = true;
+                DealDamage(50);
                 
                 if (resetBar == false)
                 {
                     currentProgress = 0;
                     resetBar = true;
-                    Debug.Log("Reset please");
                 }
                
                 CleanObjectOne();
@@ -259,8 +265,106 @@ public class ProgressBar : MonoBehaviour
         //Then next is the cup
         if (repeatOneDone)
         {
+
+            couchDoodle.GetComponent<SpriteRenderer>().enabled = false;
+            couchModel.GetComponent<MeshRenderer>().enabled = true;
+            
             animator.SetBool("shouldAppear", false);
+
+            coffeeDoodle.GetComponent<SpriteRenderer>().enabled = true;
+            coffeeModel.GetComponent<MeshRenderer>().enabled = false;
+
+            if (repeatTwo)
+            {
+
+                animator.SetBool("shouldAppear", true);
+                shouldFill = true;
+                DealDamage(45);
+                
+                if (resetBar == false)
+                {
+                    currentProgress = 0;
+                    resetBar = true;
+                }
+               
+                CleanObjectThree();
+
+            }
+
+
         }
+        
+        //Then, we go back to the Switch
+        if (repeatTwoDone)
+        {
+            coffeeDoodle.GetComponent<SpriteRenderer>().enabled = false;
+            coffeeModel.GetComponent<MeshRenderer>().enabled = true;
+            
+            animator.SetBool("shouldAppear",false);
+
+            switchDoodle.GetComponent<SpriteRenderer>().enabled = true;
+            switchModel.GetComponent<MeshRenderer>().enabled = false;
+            
+            if (repeatThree)
+            {
+                Debug.Log("bar should appear for this");
+                animator.SetBool("shouldAppear", true);
+                shouldFill = true;
+                DealDamage(50);
+                
+                if (resetBar == false)
+                {
+                    currentProgress = 0;
+                    resetBar = true;
+                }
+               
+                CleanObjectTwo();
+
+            }
+
+        }
+
+        if (repeatThreeDone)
+        {
+            switchDoodle.GetComponent<SpriteRenderer>().enabled = false;
+            switchModel.GetComponent<MeshRenderer>().enabled = true;
+            
+            animator.SetBool("shouldAppear",false);
+
+            bowlDoodle.GetComponent<SpriteRenderer>().enabled = true;
+            bowlModel.GetComponent<MeshRenderer>().enabled = false;
+
+            if (repeatFour)
+            {
+                
+                animator.SetBool("shouldAppear",true);
+                shouldFill = true;
+                DealDamage(60);
+
+                if (resetBar == false)
+                {
+                    currentProgress = 0;
+                    resetBar = true;
+                }
+
+
+              
+            }
+            
+            CleanObjectFour();
+
+
+        }
+
+        if (repeatFourDone)
+        {
+            wall.GetComponent<MeshRenderer>().enabled = false;
+            wall.GetComponent<BoxCollider>().enabled = false;
+            Debug.Log("The wall should be gone now");
+            
+        }
+        
+        
         
         
         
@@ -274,7 +378,7 @@ public class ProgressBar : MonoBehaviour
 
     void addProgress(float progressGained)
     {
-       // Debug.Log("Adding Progress");
+        Debug.Log("Adding: " + progressGained );
       
         currentProgress += progressGained;
         progressBar.value = CalculateProgress();
@@ -283,7 +387,7 @@ public class ProgressBar : MonoBehaviour
         if (currentProgress >= maxProgress)
         {
             currentProgress -= 1;
-            Debug.Log("Progress is full. Will no longer add more");
+            //Debug.Log("Progress is full. Will no longer add more");
         }
 
     }
@@ -295,6 +399,7 @@ public class ProgressBar : MonoBehaviour
         currentProgress -= damageValue * Time.deltaTime;
         //Same as from start
         progressBar.value = CalculateProgress();
+        Debug.Log(("Damage Done: " + damageValue));
 
 
     }
@@ -343,7 +448,6 @@ public class ProgressBar : MonoBehaviour
      
          if (currentProgress >= 99f && repeatOneDone == false)
          {
-                Debug.Log("This resets to 0");
                 repeatOneDone = true;
                 shouldFill = false;
                 currentProgress = 0;
@@ -374,16 +478,30 @@ public class ProgressBar : MonoBehaviour
             animator.SetBool("shouldAppear", false);
             objectTwo.GetComponent<Animator>().SetBool("isCleanTwo", true);
         }
-        else if (twoDone == true)
+        else if (twoDone == true && repeatThree == false)
         {
             animator.SetBool("shouldAppear", false);
 
         }
+        
+        //For when it goes back to the Switch
+        if (Input.GetKeyDown(KeyCode.Space) && shouldFill && repeatThree && repeatThreeDone == false)
+        {
+            addProgress(20);
+        }
 
-      
-
-
-
+        if (currentProgress >= 99f && repeatThreeDone == false)
+        {
+            repeatThreeDone = true;
+            shouldFill = false;
+            currentProgress = 0;
+            objectOne.GetComponent<Animator>().SetBool("isClean", true);
+        }
+        else if (repeatThreeDone)
+        {
+            repeatThreeDone = true;
+            
+        }
 
     }
     
@@ -392,7 +510,7 @@ public class ProgressBar : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && shouldFill && dealingDamage && threeDone == false)
         {
             Debug.Log("Refill Less");
-            addProgress(6);
+            addProgress(15);
 
         }
         else if (Input.GetKeyDown(KeyCode.Space) && shouldFill == false)
@@ -409,10 +527,37 @@ public class ProgressBar : MonoBehaviour
 
 
         }
-        else if (threeDone == true)
+        else if (threeDone == true && repeatTwo == false)
         {
             animator.SetBool("shouldAppear", false);
-            DealDamage(0);
+        
+        }
+        
+        //For when it goes back to the Cup
+        if (Input.GetKeyDown(KeyCode.Space) && shouldFill && repeatTwo && repeatTwoDone == false)
+        {
+
+            addProgress(10);
+        }
+        else if (shouldFill == false) 
+        {
+            Debug.Log("Do not fill the repeat couch 1");
+        }
+
+     
+        if (currentProgress >= 99f && repeatTwoDone == false)
+        {
+            repeatTwoDone = true;
+            shouldFill = false;
+            currentProgress = 0;
+            objectOne.GetComponent<Animator>().SetBool("isClean", true);
+        }
+        else if (repeatTwoDone)
+        {
+            Debug.Log("Do everything in here");
+            shouldFill = false;
+            repeatTwoDone = true;
+            animator.SetBool("shouldAppear", false);
         }
 
     }
@@ -439,10 +584,38 @@ public class ProgressBar : MonoBehaviour
 
 
         }
-        else if (fourDone == true)
+        else if (fourDone == true && repeatFour == false)
         {
             animator.SetBool("shouldAppear", false);
-            DealDamage(0);
+
+        }
+        
+        //The final object!
+        if (Input.GetKeyDown(KeyCode.Space) && shouldFill && repeatFour && repeatFourDone == false)
+        {
+
+            addProgress(15);
+        }
+        else if (shouldFill == false) 
+        {
+            Debug.Log("Do not fill bowl again");
+        }
+
+     
+        if (currentProgress >= 99f && repeatFourDone == false)
+        {
+            repeatFourDone = true;
+            shouldFill = false;
+            currentProgress = 0;
+            objectOne.GetComponent<Animator>().SetBool("isClean", true);
+        }
+        else if (repeatFourDone)
+        {
+        
+            shouldFill = false;
+            repeatFourDone = true;
+            animator.SetBool("shouldAppear",false);
+     
         }
 
     }

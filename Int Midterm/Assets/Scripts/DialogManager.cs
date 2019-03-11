@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,9 @@ public class DialogManager : MonoBehaviour
 
     public TextMeshProUGUI dialogText;
     public Animator anim;
+
+    public ProgressBar progressScript;
+    
     
     //Currently there is a glitch where 
     //Even though I prevent the sentence from being show
@@ -25,6 +29,8 @@ public class DialogManager : MonoBehaviour
     private void Start()
     {
 	    dialogTrigger = GetComponent<DialogTrigger>();
+	    progressScript = FindObjectOfType<ProgressBar>().GetComponent<ProgressBar>();
+
     }
 
     public void StartDialog (Dialog convoToShow)
@@ -52,6 +58,7 @@ public class DialogManager : MonoBehaviour
         if (_sentences.Count == 0 )
         {
             EndDialog();
+        
             return;
         }
       
@@ -80,4 +87,6 @@ public class DialogManager : MonoBehaviour
 	    anim.SetBool("isOpen",false);
     
     }
+
+
 }

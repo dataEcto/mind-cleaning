@@ -33,14 +33,14 @@ public class RaycastBehavior : MonoBehaviour
             if (hit.transform.gameObject.tag == "Cleaning Object 1")
             {
                 progressScript.oneStart = true;
-                Debug.Log("Set one to true");
+              
                 
                 
                 //This makes the couch the "5th" object
                 //We are essentially looping back to the start
                 if (progressScript.fourDone)
                 {
-                    Debug.Log("This SHOULD show up!");
+                    
                     progressScript.repeatOne = true;
 
                 }
@@ -49,26 +49,41 @@ public class RaycastBehavior : MonoBehaviour
             if (hit.transform.gameObject.tag == "Cleaning Object 2" && progressScript.oneDone == true)
             {
                 progressScript.twoStart = true;
-                Debug.Log("Set two to true");
+               
+                //The switch is the "7th" object now
+                if (progressScript.repeatTwoDone)
+                {
+                    Debug.Log("Begin cleaning the switch again");
+                    progressScript.repeatThree = true;
+                }
             }
 
             if (hit.transform.gameObject.tag == "Cleaning Object 3" && progressScript.twoDone == true)
             {
                 progressScript.threeStart = true;
-                Debug.Log("Set 3 to true now");
+                
+                //Make the revisit Cup the "6th" object
+                if (progressScript.repeatOneDone)
+                {
+                    
+                    progressScript.repeatTwo = true;
+                }
+           
             }
             
             if (hit.transform.gameObject.tag == "Cleaning Object 4" && progressScript.threeDone == true)
             {
                 progressScript.fourStart = true;
-                Debug.Log("Set 4 to true now");
+
+                if (progressScript.repeatThreeDone)
+                {
+                    progressScript.repeatFour = true;
+                }
+             
             }
             
         }
 
-        else
-        {
-       
-        }
+      
     }
 }

@@ -10,8 +10,12 @@
           <e p="Dialog.cs" t="Include" />
           <e p="DialogManager.cs" t="Include" />
           <e p="DialogTrigger.cs" t="Include" />
+          <e p="Ending_Dialog.cs" t="Include" />
           <e p="fpsController.cs" t="Include" />
           <e p="Loop_1_Dialog.cs" t="Include" />
+          <e p="Loop_2_Dialog.cs" t="Include" />
+          <e p="Loop_3_Dialog.cs" t="Include" />
+          <e p="Loop_4_Dialog.cs" t="Include" />
           <e p="Object_1_Dialog.cs" t="Include" />
           <e p="Object_2_Dialog.cs" t="Include" />
           <e p="Object_3_Dialog.cs" t="Include" />
