@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.SceneManagement;
 
-//This is code from another game I was attempting
-//Some of the captilzation is off, so I apologize
+//This is the general Game Controller, all located
+//On the Progress Bar
+//There is some code from another game I was attempting 
+//to make during the summer, but I never finished it.
+//This means some of the wording does get weird, but I will still
+//Attempt to explain it
 public class ProgressBar : MonoBehaviour
 {
     /// <summary>
@@ -16,9 +19,8 @@ public class ProgressBar : MonoBehaviour
     public float currentProgress { get; set; }
 
     public float maxProgress { get; set; }
-    //public float ProgressRefillRate;
 
-    //public TextMeshProUGUI progressBarText;
+
     public Animator animator;
 
     /// <summary>
@@ -31,7 +33,7 @@ public class ProgressBar : MonoBehaviour
     public GameObject player;
     public bool resetBar;
     
-    
+    //Properties relating to the First Object to clean, The Couch
     public GameObject objectOne;
     public GameObject couchModel;
     public GameObject couchDoodle;
@@ -40,6 +42,7 @@ public class ProgressBar : MonoBehaviour
     public bool repeatOne;
     public bool repeatOneDone; 
     
+    //Properties relating to the Second Object to clean, The Nintendo Switch
     public GameObject objectTwo;
     public GameObject switchModel;
     public GameObject switchDoodle;
@@ -48,6 +51,8 @@ public class ProgressBar : MonoBehaviour
     public bool repeatThree;
     public bool repeatThreeDone;
     
+    
+    //Properties relating to the Third Object to clean, The Coffee Cup
     public GameObject objectThree;
     public GameObject coffeeModel;
     public GameObject coffeeDoodle;
@@ -56,6 +61,7 @@ public class ProgressBar : MonoBehaviour
     public bool repeatTwo;
     public bool repeatTwoDone;
 
+    //Properties relating to the Fourth Object to clean, the Bowl
     public GameObject objectFour;
     public GameObject bowlModel;
     public GameObject bowlDoodle;
@@ -65,12 +71,16 @@ public class ProgressBar : MonoBehaviour
     public bool repeatFourDone;
 
 
+    //Properties relating to Bushy, both the NPC and the Final Cleanable object
+    public GameObject bushyModel;
+    public GameObject bushyDoodle;
     public bool bushyStart;
     public bool bushyDone;
+  
 
 
 
-    //Other Minigames to fill up bar trigger
+    //The properties that involve the DealDamage method
     bool dealingDamage;
     private bool dealingDamageAgain;
     Color damageColor;
@@ -78,10 +88,7 @@ public class ProgressBar : MonoBehaviour
 
     bool shouldFill;
 
-    //Prototype Stuff
-    public Dialog convo;
-    public DialogManager dialogManager;
-    
+   
     public GameObject wall;
 
     void Start()
@@ -122,6 +129,7 @@ public class ProgressBar : MonoBehaviour
 
         bushyStart = false;
         bushyDone = false;
+     
         
         //Set all other doodle objects to be invisible at first.
         switchDoodle.GetComponent<SpriteRenderer>().enabled = false;
@@ -141,6 +149,8 @@ public class ProgressBar : MonoBehaviour
 
         
         //Object One
+        //The Couch
+        //This oneStart bool (and other variants) comes from the Raycast script
         if (oneStart)
         {
             shouldFill = true;
@@ -151,15 +161,20 @@ public class ProgressBar : MonoBehaviour
 
 
         //Object Two
+        //The Nintendo Switch
         if (oneDone)
         {
             //Disable the previous Sprite
             //then change it to its new model
+            //I could have set this up before in start, but
+            //but by the time I realized that, it was...too late
             couchDoodle.GetComponent<SpriteRenderer>().enabled = false;
             couchModel.GetComponent<MeshRenderer>().enabled = true;
 
             //Enabled the next object to appear
             switchDoodle.GetComponent<SpriteRenderer>().enabled = true;
+            
+           
             
             
             if (twoStart)
@@ -173,6 +188,7 @@ public class ProgressBar : MonoBehaviour
         
         
         //Object Three
+        //The Coffee Cup
         if (twoDone == true)
         {
             //Disable the previous Sprite
@@ -208,8 +224,10 @@ public class ProgressBar : MonoBehaviour
 
         }
 
+
         
         //Object 4
+        //The Bowl
         if (threeDone == true)
         {
             //Disable the previous Sprite
@@ -217,11 +235,10 @@ public class ProgressBar : MonoBehaviour
             coffeeDoodle.GetComponent<SpriteRenderer>().enabled = false;
             coffeeModel.GetComponent<MeshRenderer>().enabled = true;
          
-
             bowlDoodle.GetComponent<SpriteRenderer>().enabled = true;
            
             animator.SetBool("shouldAppear", false);
-           
+
          
             fillbar.color = damageColor;
 
@@ -229,9 +246,16 @@ public class ProgressBar : MonoBehaviour
             {
                 currentProgress = 1;
             }
+        
 
             if (fourStart)
             {
+                
+                if (dealingDamage == false)
+                {
+                    currentProgress = 50;
+                    dealingDamage = true;
+                }
                 shouldFill = true;
                 animator.SetBool("shouldAppear", true);
                 CleanObjectFour();
@@ -240,7 +264,8 @@ public class ProgressBar : MonoBehaviour
 
         }
 
-        //Loop back to the couch
+        //Object "5"
+        //The Couch Again
         if (fourDone == true)
         {
             //Disable certain object 4 stuff as per usual
@@ -256,7 +281,7 @@ public class ProgressBar : MonoBehaviour
             {
                 animator.SetBool("shouldAppear", true);
                 shouldFill = true;
-                DealDamage(50);
+                DealDamage(20);
                 
                 if (resetBar == false)
                 {
@@ -270,7 +295,8 @@ public class ProgressBar : MonoBehaviour
             }
         }
 
-        //Then next is the cup
+        //Object "6"
+        //The Cup Again
         if (repeatOneDone)
         {
 
@@ -287,7 +313,7 @@ public class ProgressBar : MonoBehaviour
 
                 animator.SetBool("shouldAppear", true);
                 shouldFill = true;
-                DealDamage(45);
+                DealDamage(30);
                 
                 if (resetBar == false)
                 {
@@ -302,7 +328,8 @@ public class ProgressBar : MonoBehaviour
 
         }
         
-        //Then, we go back to the Switch
+        //Object "7"
+        //The Nintendo Switch Again
         if (repeatTwoDone)
         {
             coffeeDoodle.GetComponent<SpriteRenderer>().enabled = false;
@@ -318,7 +345,7 @@ public class ProgressBar : MonoBehaviour
                 Debug.Log("bar should appear for this");
                 animator.SetBool("shouldAppear", true);
                 shouldFill = true;
-                DealDamage(50);
+                DealDamage(40);
                 
                 if (resetBar == false)
                 {
@@ -347,7 +374,7 @@ public class ProgressBar : MonoBehaviour
                 
                 animator.SetBool("shouldAppear",true);
                 shouldFill = true;
-                DealDamage(60);
+                DealDamage(40);
 
                 if (resetBar == false)
                 {
@@ -368,6 +395,19 @@ public class ProgressBar : MonoBehaviour
         {
             wall.GetComponent<MeshRenderer>().enabled = false;
             wall.GetComponent<BoxCollider>().enabled = false;
+
+            bushyDoodle.GetComponent<AudioSource>().enabled = true;
+
+            couchModel.GetComponent<MeshRenderer>().enabled = false;
+            switchModel.GetComponent<MeshRenderer>().enabled = false;
+            coffeeModel.GetComponent<MeshRenderer>().enabled = false;
+            bowlDoodle.GetComponent<SpriteRenderer>().enabled = false;
+            
+            
+            //Disable the Bushy that is inside the house
+            bushyDoodle.GetComponent<SpriteRenderer>().enabled = false;
+            bushyDoodle.GetComponent<AudioSource>().enabled = false;
+            
             Debug.Log("The wall should be gone now");
 
 
@@ -376,7 +416,7 @@ public class ProgressBar : MonoBehaviour
                 
                 animator.SetBool("shouldAppear",true);
                 shouldFill = true;
-                DealDamage(70);
+                DealDamage(5);
 
                 if (resetBar == false)
                 {
@@ -653,7 +693,7 @@ public class ProgressBar : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && shouldFill && bushyDone == false)
         {
             Debug.Log("Refill Less");
-            addProgress(25);
+            addProgress(20);
 
         }
         else if (Input.GetKeyDown(KeyCode.Space) && shouldFill == false)

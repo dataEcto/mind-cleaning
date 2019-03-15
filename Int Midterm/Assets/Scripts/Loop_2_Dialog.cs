@@ -14,7 +14,7 @@ public class Loop_2_Dialog : MonoBehaviour
     {
         isTriggered = true;
         dialogManager = FindObjectOfType<DialogManager>().GetComponent<DialogManager>();
-        TriggerDialog();
+        
         progressScript = FindObjectOfType<ProgressBar>().GetComponent<ProgressBar>();
 
     }

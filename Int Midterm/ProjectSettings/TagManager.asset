@@ -10,6 +10,7 @@ TagManager:
   - damage game
   - Cleaning Object 3
   - Cleaning Object 4
+  - Flag
   layers:
   - Default
   - TransparentFX

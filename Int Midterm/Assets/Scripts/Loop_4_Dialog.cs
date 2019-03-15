@@ -18,17 +18,15 @@ public class Loop_4_Dialog : MonoBehaviour
     {
         isTriggered = true;
         dialogManager = FindObjectOfType<DialogManager>().GetComponent<DialogManager>();
-        TriggerDialog();
         progressScript = FindObjectOfType<ProgressBar>().GetComponent<ProgressBar>();
         
        
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("The Counter is at : " + counter);
+      
         if (progressScript.repeatFourDone == true)
         {
             if (isTriggered == true)
@@ -37,19 +35,15 @@ public class Loop_4_Dialog : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
                     ContinueDialogue();
-       
-
-                  
-                        
-                
                 }
 
                 isTriggered = false;
             }
-         
           
 
+         
         }
+
         
         
     }

@@ -6,9 +6,11 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: Couch Texture
+    2100002: Material.001
     2300000: //RootNode
     3300000: //RootNode
     4300000: Cube
+    4300002: Cylinder
     2186277476908879412: ImportLogs
   externalObjects: {}
   materials:

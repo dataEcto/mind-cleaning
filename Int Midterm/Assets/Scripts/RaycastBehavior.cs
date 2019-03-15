@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class RaycastBehavior : MonoBehaviour
@@ -9,11 +10,13 @@ public class RaycastBehavior : MonoBehaviour
 
     public float maxDistance;
     public ProgressBar progressScript;
+    public GameObject wallTwo;
   
 
     private void Start()
     {
         progressScript = FindObjectOfType<ProgressBar>().GetComponent<ProgressBar>();
+        wallTwo = GameObject.Find("2nd Blockade");
        
     }
 
@@ -87,9 +90,17 @@ public class RaycastBehavior : MonoBehaviour
 
                 Debug.Log("Hit bushy");
                 progressScript.bushyStart = true;
-                
 
             }
+
+            if (hit.transform.gameObject.tag == "Flag")
+            {
+
+                Debug.Log("BEGONE, WALL");
+                wallTwo.GetComponent<MeshRenderer>().enabled = false;
+                wallTwo.GetComponent<BoxCollider>().enabled = false;
+            }
+
             
         }
 
