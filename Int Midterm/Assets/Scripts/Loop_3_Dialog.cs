@@ -8,14 +8,15 @@ public class Loop_3_Dialog : MonoBehaviour
     public Dialog convo;
     public DialogManager dialogManager;
     public ProgressBar progressScript;
+    public float convoTimer;
 
     // Start is called before the first frame update
     void Start()
     {
         isTriggered = true;
         dialogManager = FindObjectOfType<DialogManager>().GetComponent<DialogManager>();
-        
         progressScript = FindObjectOfType<ProgressBar>().GetComponent<ProgressBar>();
+        convoTimer = 3;
 
     }
 
@@ -27,9 +28,10 @@ public class Loop_3_Dialog : MonoBehaviour
             if (isTriggered == true)
             {
                 TriggerDialog();
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                if (Input.GetKeyDown(KeyCode.Mouse0) || convoTimer <= 0)
                 {
                     ContinueDialogue();
+                    convoTimer = 3;
                 }
 
                 isTriggered = false;

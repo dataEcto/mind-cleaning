@@ -16,6 +16,7 @@ public class fpsController : MonoBehaviour
     public Vector3 inputVelocity; // The cumulative velocity to move the character
     
     public float velocityModifier; //Velocity of the controller mulitplied by this number
+    float verticalLook = 0f; 
     
     void Start()
     {
@@ -36,6 +37,14 @@ public class fpsController : MonoBehaviour
         
         inputVelocity = transform.forward * fpForwardBackward;
         inputVelocity += transform.right * fpStrafe;
+        
+        // BETTER MOUSE LOOK:
+        // add mouse input to verticalLook, then clamp verticalLook
+        verticalLook += -pitch;
+        verticalLook = Mathf.Clamp(verticalLook, -80f, 80f);
+		
+        // actually apply verticalLook to camera's rotation
+        myCamera.transform.localEulerAngles = new Vector3(verticalLook,0f,0f);        
 
     }
 

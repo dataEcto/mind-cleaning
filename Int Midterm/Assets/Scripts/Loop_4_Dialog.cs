@@ -8,8 +8,7 @@ public class Loop_4_Dialog : MonoBehaviour
     public Dialog convo;
     public DialogManager dialogManager;
     public ProgressBar progressScript;
-    public float counter;
-    public float max;
+    public float convoTimer;
     
     
 
@@ -19,8 +18,9 @@ public class Loop_4_Dialog : MonoBehaviour
         isTriggered = true;
         dialogManager = FindObjectOfType<DialogManager>().GetComponent<DialogManager>();
         progressScript = FindObjectOfType<ProgressBar>().GetComponent<ProgressBar>();
-        
-       
+        convoTimer = 3;
+
+
     }
 
     // Update is called once per frame
@@ -32,9 +32,10 @@ public class Loop_4_Dialog : MonoBehaviour
             if (isTriggered == true)
             {
                 TriggerDialog();
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                if (Input.GetKeyDown(KeyCode.Mouse0) || convoTimer <= 0 )
                 {
                     ContinueDialogue();
+                    convoTimer = 3;
                 }
 
                 isTriggered = false;

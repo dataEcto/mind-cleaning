@@ -11,6 +11,7 @@ public class RaycastBehavior : MonoBehaviour
     public float maxDistance;
     public ProgressBar progressScript;
     public GameObject wallTwo;
+    public GameObject falseBushyStand;
   
 
     private void Start()
@@ -85,6 +86,12 @@ public class RaycastBehavior : MonoBehaviour
              
             }
 
+            if (hit.transform.gameObject.tag == "firstFake")
+            {
+                falseBushyStand.GetComponent<BoxCollider>().enabled = false;
+                falseBushyStand.GetComponent<MeshRenderer>().enabled = false;
+            }
+
             if (hit.transform.gameObject.tag == "Finish")
             {
 
@@ -100,6 +107,13 @@ public class RaycastBehavior : MonoBehaviour
                 wallTwo.GetComponent<MeshRenderer>().enabled = false;
                 wallTwo.GetComponent<BoxCollider>().enabled = false;
             }
+
+            if (hit.transform.gameObject.tag == "FalseBushy" && Input.GetKeyDown(KeyCode.Space))
+            {
+                Destroy(hit.transform.gameObject);
+            }
+            
+            
 
             
         }

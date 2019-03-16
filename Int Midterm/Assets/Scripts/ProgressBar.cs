@@ -91,6 +91,7 @@ public class ProgressBar : MonoBehaviour
    
     public GameObject wall;
 
+
     void Start()
     {
         //can be any value of course
@@ -141,13 +142,15 @@ public class ProgressBar : MonoBehaviour
         damageColor = Color.blue;
         
         wall = GameObject.Find("Ending Wall");
+
+
     }
 
 
     void Update()
     {
 
-        
+       
         //Object One
         //The Couch
         //This oneStart bool (and other variants) comes from the Raycast script
@@ -157,6 +160,8 @@ public class ProgressBar : MonoBehaviour
             animator.SetBool("shouldAppear", true);
             CleanObjectOne();
             oneStart = false;
+     
+
         }
 
 
@@ -407,6 +412,10 @@ public class ProgressBar : MonoBehaviour
             //Disable the Bushy that is inside the house
             bushyDoodle.GetComponent<SpriteRenderer>().enabled = false;
             bushyDoodle.GetComponent<AudioSource>().enabled = false;
+
+
+            //let da spooky begin
+            bushyModel.GetComponent<AudioSource>().enabled = true;
             
             Debug.Log("The wall should be gone now");
 
