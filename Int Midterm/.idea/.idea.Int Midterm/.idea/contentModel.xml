@@ -15,6 +15,7 @@
           <e p="Ending_Dialog.cs" t="Include" />
           <e p="EndingProgressBar.cs" t="Include" />
           <e p="EndScreen.cs" t="Include" />
+          <e p="Final_Dialog.cs" t="Include" />
           <e p="fpsController.cs" t="Include" />
           <e p="Loop_1_Dialog.cs" t="Include" />
           <e p="Loop_2_Dialog.cs" t="Include" />

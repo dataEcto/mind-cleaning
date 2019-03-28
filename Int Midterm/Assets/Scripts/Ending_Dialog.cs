@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class Ending_Dialog : MonoBehaviour
@@ -13,6 +12,7 @@ public class Ending_Dialog : MonoBehaviour
     public DialogManager dialogManager;
     public ProgressBar progressScript;
     public Start_Dialog startDialog;
+    public bool disable;
     public float convoTimer;
 
     // Start is called before the first frame update
@@ -22,7 +22,8 @@ public class Ending_Dialog : MonoBehaviour
         progressScript = FindObjectOfType<ProgressBar>().GetComponent<ProgressBar>();
         startDialog = FindObjectOfType<Start_Dialog>().GetComponent<Start_Dialog>();
         startingDialog = false;
-        convoTimer = 6;
+        disable = false;
+        convoTimer = 8;
     }
 
     // Update is called once per frame
@@ -46,16 +47,19 @@ public class Ending_Dialog : MonoBehaviour
 
         }
 
-       //Starting Dialog Continue
-        if (isTriggered ==  false && progressScript.oneStart == false)
+        if (disable)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) || convoTimer <= 0)
-            {
-                ContinueDialogue();
-                convoTimer = 6;
-                startDialog.enabled = false;
-            }
+            startDialog.enabled = false; 
         }
+
+        if ( convoTimer <= 0)
+        {
+            ContinueDialogue();
+            convoTimer = 8;
+         
+        }
+
+      
 
 
 
@@ -68,6 +72,8 @@ public class Ending_Dialog : MonoBehaviour
      
             TriggerDialog();
             startingDialog = true;
+            disable = true;
+          
 
     }
 

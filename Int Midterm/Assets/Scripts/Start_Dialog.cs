@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class Start_Dialog : MonoBehaviour
@@ -49,7 +48,7 @@ public class Start_Dialog : MonoBehaviour
        //Starting Dialog Continue
         if (isTriggered ==  false && progressScript.oneStart == false)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) || convoTimer <= -2)
+            if (convoTimer <= -2)
             {
                 ContinueDialogue();
                 convoTimer = 7;
